@@ -25,13 +25,13 @@ resource "aws_rds_cluster" "default" {
 }
 
 variable "name" {
-  default = "pokemondb"
+  default = ${{ secrets.DB_NAME }}
 }
 
 variable "user" {
-  default = "admin"
+  default = ${{ secrets.USERNAME }}
 }
 
 variable "password" {
-  default = "abcd1234"
+  default = ${{ secrets.DB_PASS }}
 }
