@@ -8,7 +8,7 @@ terraform {
         workspaces {
             name = "example-workspace"
         }
-        token = var.token
+        token = "anmglH2hysTETg.atlasv1.mKhBmVTJbCza802mINIj50Y0kzZ3yame89cSfmYlqSN3SzbggRd1kmOBdzhKQ8y4AwQ"
     }
 }
 
