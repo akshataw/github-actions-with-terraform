@@ -25,13 +25,13 @@ resource "aws_rds_cluster" "default" {
 }
 
 variable "name" {
-  default = ${{ secrets.DB_NAME }}
+  default = ""
 }
 
 variable "user" {
-  default = ${{ secrets.USERNAME }}
+  default = ""
 }
 
 variable "password" {
-  default = ${{ secrets.DB_PASS }}
+  default = ""
 }
