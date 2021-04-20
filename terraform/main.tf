@@ -23,3 +23,15 @@ resource "aws_rds_cluster" "default" {
     enable_http_endpoint = true
     skip_final_snapshot = true
 }
+
+variable "name" {
+  default = "pokemondb"
+}
+
+variable "user" {
+  default = "admin"
+}
+
+variable "password" {
+  default = "abcd1234"
+}
