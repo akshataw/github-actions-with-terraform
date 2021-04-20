@@ -37,14 +37,14 @@ jobs:
 
     - name: Terraform Plan
       run: terraform plan
-      # working-directory: ./terraform
-      with:
-        tf_actions_working_dir: './terraform'
-        args: '-var-file="terraform.tfvars"'
+      working-directory: ./terraform
+      # with:
+      #   tf_actions_working_dir: './terraform'
+      #   args: '-var-file="terraform.tfvars"'
 
     - name: Terraform Apply
       run: terraform apply -auto-approve
-      # working-directory: ./terraform
-      with:
-        tf_actions_working_dir: './terraform'
-        args: '-var-file="terraform.tfvars"'
+      working-directory: ./terraform
+      # with:
+      #   tf_actions_working_dir: './terraform'
+      #   args: '-var-file="terraform.tfvars"'
