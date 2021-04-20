@@ -36,19 +36,19 @@ jobs:
       run: terraform fmt -check
 
     - name: Terraform Plan
-      run: terraform plan
-      working-directory: ./terraform
-      # uses: hashicorp/terraform-github-actions@master
-      # with:
-      #   tf_actions_version: 0.12.13
-      #   tf_actions_subcommand: 'plan'
-      #   tf_actions_working_dir: './terraform'
-      #   tf_actions_comment: true
-      # args: '-var-file="terraform.tfvars"'
+      # run: terraform plan
+      # working-directory: ./terraform
+      uses: hashicorp/terraform-github-actions@master
+      with:
+        tf_actions_version: 0.12.13
+        tf_actions_subcommand: 'plan'
+        tf_actions_working_dir: './terraform'
+        tf_actions_comment: true
+        args: '-var-file="/terraform/terraform.tfvars"'
 
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
-      working-directory: ./terraform
+    # - name: Terraform Apply
+    #   run: terraform apply -auto-approve
+    #   working-directory: ./terraform
       # uses: hashicorp/terraform-github-actions@master
       # with:
       #   tf_actions_version: 0.12.13

@@ -21,7 +21,7 @@ resource "aws_rds_cluster" "default" {
     master_password = var.password
     backup_retention_period = 1
     enable_http_endpoint = true
-    skip_final_snapshot = false
+    skip_final_snapshot = true
 }
 
 variable "name" {
