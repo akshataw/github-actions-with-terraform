@@ -36,15 +36,19 @@ jobs:
       run: terraform fmt -check
 
     - name: Terraform Plan
-      run: terraform plan
-      working-directory: ./terraform
-      # with:
-      #   tf_actions_working_dir: './terraform'
-      #   args: '-var-file="terraform.tfvars"'
+      # run: terraform plan
+      # working-directory: ./terraform
+      with:
+        tf_actions_subcommand: 'plan'
+        tf_actions_working_dir: './terraform'
+        tf_actions_comment: true
+        args: '-var-file="terraform.tfvars"'
 
     - name: Terraform Apply
-      run: terraform apply -auto-approve
-      working-directory: ./terraform
-      # with:
-      #   tf_actions_working_dir: './terraform'
-      #   args: '-var-file="terraform.tfvars"'
+      # run: terraform apply -auto-approve
+      # working-directory: ./terraform
+      with:
+        tf_actions_subcommand: 'apply'
+        tf_actions_working_dir: './terraform'
+        tf_actions_comment: true
+        args: '-var-file="terraform.tfvars"'
