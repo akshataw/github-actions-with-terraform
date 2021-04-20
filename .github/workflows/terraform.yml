@@ -44,7 +44,7 @@ jobs:
       #   tf_actions_subcommand: 'plan'
       #   tf_actions_working_dir: './terraform'
       #   tf_actions_comment: true
-      #   args: '-var-file="terraform.tfvars"'
+      # args: '-var-file="terraform.tfvars"'
 
     - name: Terraform Apply
       run: terraform apply -auto-approve
