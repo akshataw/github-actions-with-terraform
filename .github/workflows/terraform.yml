@@ -40,6 +40,7 @@ jobs:
       # run: terraform plan
       # working-directory: ./terraform
       with:
+        tf_actions_version: 0.12.13
         tf_actions_subcommand: 'plan'
         tf_actions_working_dir: './terraform'
         tf_actions_comment: true
@@ -50,6 +51,7 @@ jobs:
       # run: terraform apply -auto-approve
       # working-directory: ./terraform
       with:
+        tf_actions_version: 0.12.13
         tf_actions_subcommand: 'apply'
         tf_actions_working_dir: './terraform'
         tf_actions_comment: true
