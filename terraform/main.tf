@@ -22,6 +22,9 @@ resource "aws_db_instance" "default" {
   password             = var.password
   parameter_group_name = "default.mysql5.7"
   skip_final_snapshot  = true
+  tags {
+    Name = "mycicddb"
+  }
 }
 
 resource "aws_security_group" "ci-sg" {
@@ -46,6 +49,24 @@ resource "aws_security_group" "ci-sg" {
         to_port = 22
         protocol = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
+    }
+
+    egress {
+        from_port = 0
+        to_port = 0
+        protocol = "-1"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+}
+
+resource "aws_security_group" "cd-sg" {
+    name = "cd-sg"
+    description = "Allow TLS inbound traffic for CD Demo"
+    ingress {
+        from_port = 80
+        to_port = 80
+        protocol = "tcp"
+        cidr_blocks = ["172.31.0.0/16"]
     }
 
     egress {
