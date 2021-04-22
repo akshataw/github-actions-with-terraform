@@ -33,7 +33,15 @@ resource "aws_rds_cluster" "default" {
     master_password = var.password
     backup_retention_period = 1
     enable_http_endpoint = true
-    skip_final_snapshot = true
+    skip_final_snapshot = false
+
+    scaling_configuration {
+      auto_pause               = true
+      max_capacity             = 2
+      min_capacity             = 1
+      seconds_until_auto_pause = 100
+      timeout_action           = "ForceApplyCapacityChange"
+    }
     
     lifecycle {
       ignore_changes = [
