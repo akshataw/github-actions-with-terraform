@@ -23,6 +23,10 @@ resource "aws_rds_cluster" "default" {
     backup_retention_period = 1
     enable_http_endpoint = true
     skip_final_snapshot = true
+
+    lifecycle {
+      prevent_destroy = true
+    }
 }
 
 resource "aws_security_group" "ci-sg" {
@@ -54,6 +58,32 @@ resource "aws_security_group" "ci-sg" {
         to_port = 0
         protocol = "-1"
         cidr_blocks = ["0.0.0.0/0"]
+    }
+
+    lifecycle {
+      prevent_destroy = true
+    }
+}
+
+resource "aws_security_group" "cd-sg" {
+    name = "cd-sg"
+    description = "Allow TLS inbound traffic for CD Demo"
+    ingress {
+        from_port = 80
+        to_port = 80
+        protocol = "tcp"
+        cidr_blocks = ["172.31.0.0/16"]
+    }
+
+    egress {
+        from_port = 0
+        to_port = 0
+        protocol = "-1"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+
+    lifecycle {
+      prevent_destroy = true
     }
 }
 
