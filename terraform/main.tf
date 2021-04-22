@@ -28,6 +28,7 @@ resource "aws_rds_cluster" "default" {
       ignore_changes = [
         cluster_identifier,
         cluster_identifier_prefix,
+        availability_zones,
       ]
     }
 }
