@@ -25,6 +25,15 @@ resource "aws_rds_cluster" "default" {
     skip_final_snapshot = true
 }
 
+resource "aws_vpc" "cimain" {
+  cidr_block       = "10.0.0.0/16"
+  instance_tenancy = "default"
+
+  tags = {
+    Name = "cimain"
+  }
+}
+
 variable "name" {
   default = ""
 }
