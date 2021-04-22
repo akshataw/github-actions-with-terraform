@@ -12,6 +12,26 @@ terraform {
     }
 }
 
+resource "aws_rds_cluster" "default" {
+    cluster_identifier = "pokemon-database"
+    engine = "aurora-mysql"
+    engine_mode = "serverless"
+    availability_zones = ["us-east-1a", "us-east-1b"]
+    database_name = var.name
+    master_username = var.user
+    master_password = var.password
+    backup_retention_period = 1
+    enable_http_endpoint = true
+    skip_final_snapshot = true
+
+    lifecycle {
+      ignore_changes = [
+        cluster_identifier,
+        cluster_identifier_prefix,
+      ]
+    }
+}
+
 resource "aws_security_group" "ci-sg" {
     name = "ci-sg"
     description = "Allow TLS inbound traffic for CI/CD Demo"
