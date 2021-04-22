@@ -27,6 +27,7 @@ resource "aws_rds_cluster" "default" {
 
 resource "aws_security_group" "ci-sg" {
     name = "ci-sg"
+    description = "Allow TLS inbound traffic for CI/CD Demo"
     ingress {
         from_port = 80
         to_port = 80
