@@ -81,8 +81,8 @@ resource "aws_security_group" "ci-sg" {
 }
 
 
-resource "aws_s3_bucket" "cicdbucket" {
-  bucket = "cicdbucket"
+resource "aws_s3_bucket" "awcibucket1" {
+  bucket = "awcibucket1"
   acl = "private"
   force_destroy = true
   tags = {
