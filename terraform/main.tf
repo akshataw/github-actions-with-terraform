@@ -22,7 +22,18 @@ resource "aws_rds_cluster" "default" {
     master_password = var.password
     backup_retention_period = 1
     enable_http_endpoint = true
+    preferred_backup_window = "07:00-09:00"
     skip_final_snapshot = true
+
+    scaling_configuration {
+      auto_pause               = true
+      max_capacity             = 1
+      min_capacity             = 1
+      seconds_until_auto_pause = 300
+    }
+
+    db_subnet_group_name    = module.vpc.database_subnet_group
+    vpc_security_group_ids  = [aws_security_group.ci-sg.id]
 
     lifecycle {
       ignore_changes = [
@@ -33,21 +44,29 @@ resource "aws_rds_cluster" "default" {
     }
 }
 
+module "vpc" {
+  souurce = "terraform-aws-modules/vpc/aws"
+  name = "cicd-vpc"
+  cidr = "10.0.0.0/16"
+  azs = ["us-east-1a", "us-east-1b"]
+  private_subnets = []
+  public_subnets = ["10.0.101.0/24", "10.0.102.0/24"]
+  create_database_subnet_group = true
+  create_database_subnet_route_table = true
+  create_database_internet_gateway_route = true
+  enable_dns_hostnames = true
+  enable_dns_support = true
+}
+
 resource "aws_security_group" "ci-sg" {
     name = "ci-sg"
     description = "Allow TLS inbound traffic for CI/CD Demo"
+    vpc_id = module.vpc.default_vpc_id
     ingress {
-        from_port = 80
-        to_port = 80
+        from_port = 3306
+        to_port = 3306
         protocol = "tcp"
-        cidr_blocks = ["172.31.0.0/16"]
-    }
-
-    ingress {
-        from_port = 22
-        to_port = 22
-        protocol = "tcp"
-        cidr_blocks = ["172.31.0.0/16"]
+        cidr_blocks = ["0.0.0.0/0"]
     }
 
     egress {
