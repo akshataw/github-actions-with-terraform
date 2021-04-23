@@ -22,7 +22,6 @@ resource "aws_rds_cluster" "default" {
     master_password = var.password
     backup_retention_period = 1
     enable_http_endpoint = true
-    preferred_backup_window = "07:00-09:00"
     skip_final_snapshot = true
 
     scaling_configuration {
