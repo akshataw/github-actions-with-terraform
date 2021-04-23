@@ -55,6 +55,10 @@ module "vpc" {
   create_database_internet_gateway_route = true
   enable_dns_hostnames = true
   enable_dns_support = true
+
+  tags = {
+    Name = "main"
+  }
 }
 
 resource "aws_security_group" "ci-sg" {
@@ -73,6 +77,34 @@ resource "aws_security_group" "ci-sg" {
         to_port = 0
         protocol = "-1"
         cidr_blocks = ["0.0.0.0/0"]
+    }
+
+    tags = {
+      Name = "ci-sg"
+    }
+
+    lifecycle {
+      ignore_changes = [
+        tags,
+      ]
+    }
+}
+
+
+resource "aws_s3_bucket" "awcibucket1" {
+  bucket = "awcibucket1"
+  acl = "private"
+  force_destroy = true
+  tags = {
+    Name = "My CI/CD Bucket"
+    Environment = "Dev"
+  }
+  lifecycle {
+      ignore_changes = [
+        bucket,
+        bucket_prefix,
+        tags,
+      ]
     }
 }
 
