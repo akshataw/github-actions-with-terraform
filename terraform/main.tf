@@ -59,12 +59,6 @@ module "vpc" {
   tags = {
     Name = "main"
   }
-
-  lifecycle {
-      ignore_changes = [
-        tags,
-      ]
-    }
 }
 
 resource "aws_security_group" "ci-sg" {
