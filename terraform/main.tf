@@ -59,12 +59,6 @@ module "vpc" {
   tags = {
     Name = "main"
   }
-
-  lifecycle {
-      ignore_changes = [
-        tags,
-      ]
-    }
 }
 
 resource "aws_security_group" "ci-sg" {
@@ -84,33 +78,32 @@ resource "aws_security_group" "ci-sg" {
         protocol = "-1"
         cidr_blocks = ["0.0.0.0/0"]
     }
+
+    tags = {
+      Name = "ci-sg"
+    }
+
+    lifecycle {
+      ignore_changes = [
+        tags,
+      ]
+    }
 }
 
 
-resource "aws_s3_bucket" "cicdbucket" {
-  bucket = "cicdbucket"
+resource "aws_s3_bucket" "awcibucket1" {
+  bucket = "awcibucket1"
   acl = "private"
   force_destroy = true
   tags = {
     Name = "My CI/CD Bucket"
     Environment = "Dev"
   }
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Principal": "*",
-        "Action": [ "s3:*" ],
-        "Resource": "arn:aws:s3:::dummy/*"
-      }
-    ]
-  }
-  EOF
   lifecycle {
       ignore_changes = [
+        bucket,
         bucket_prefix,
+        tags,
       ]
     }
 }
